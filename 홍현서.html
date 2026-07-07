@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안전이 최우선 | 건설·산업현장 필수 안전 수칙 가이드</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Noto Sans KR & Pretendard 느낌의 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons for high quality visuals -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        safetyOrange: {
+                            50: '#fffaf0',
+                            100: '#ffeed3',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                        },
+                        industrialNavy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc;
+        }
+        /* Custom smooth scroll progress bar hook */
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        /* Glassmorphism background */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-safetyOrange-500 selection:text-white">
+
+    <!-- Top Navigation with Real-time Scroll Progress & Safety Gauge -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-slate-200/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="bg-safetyOrange-500 text-white p-2 rounded-lg flex items-center justify-center shadow-lg shadow-safetyOrange-500/20">
+                        <i class="fa-solid fa-helmet-safety text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-sm font-bold text-slate-500 block leading-3 tracking-wider">INDUSTRIAL HEALTH & SAFETY</span>
+                        <span class="text-lg font-black text-slate-800 tracking-tight">현장 3대 안전수칙 가이드</span>
+                    </div>
+                </div>
+                
+                <!-- Compliance Score Display inside Header -->
+                <div class="hidden md:flex items-center space-x-4 bg-slate-100 py-1.5 px-4 rounded-full border border-slate-200">
+                    <span class="text-xs font-bold text-slate-600">실시간 안전 자가진단율:</span>
+                    <div class="w-24 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                        <div id="headerProgressBar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <span id="headerProgressText" class="text-sm font-black text-emerald-600">0%</span>
+                </div>
+            </div>
+        </div>
+        <!-- Progress Bar at the very top of header -->
+        <div class="progress-bar" id="scrollIndicator"></div>
+    </header>
+
+    <!-- Hero Section with Industrial Atmosphere & Modern Layout -->
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-32 bg-gradient-to-br from-industrialNavy-950 via-slate-900 to-industrialNavy-800 text-white overflow-hidden">
+        <!-- Visual Accent Patterns -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-safetyOrange-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Text Area -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <span class="inline-flex items-center space-x-2 bg-safetyOrange-500/10 text-safetyOrange-500 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-safetyOrange-500/30">
+                        <span class="w-2 h-2 rounded-full bg-safetyOrange-500 animate-pulse"></span>
+                        <span>산업안전보건법 준수 가이드</span>
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                        안전은 타협할 수 없는<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-safetyOrange-500 to-amber-400">최우선의 가치</span>입니다.
+                    </h1>
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        근로자의 생명과 안전을 지키는 가장 기본적이고도 절대적인 3가지 핵심 수칙입니다. 아래로 스크롤하여 각 수칙의 중요성, 세부 준수 요령, 자가 체크리스트를 클릭 없이 순차적으로 확인하세요.
+                    </p>
+                    
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#section-ppe" class="w-full sm:w-auto text-center bg-safetyOrange-500 hover:bg-safetyOrange-600 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg shadow-safetyOrange-500/30 hover:-translate-y-0.5">
+                            안전 수칙 정독하기 <i class="fa-solid fa-arrow-down ml-2 animate-bounce"></i>
+                        </a>
+                        <div class="text-xs text-slate-400 flex items-center space-x-2">
+                            <i class="fa-solid fa-circle-info text-safetyOrange-500 text-sm"></i>
+                            <span>마우스 스크롤 또는 터치 스와이프로 간편히 볼 수 있습니다.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Diagnostics Card Graphic -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white/5 border border-white/10 p-6 sm:p-8 rounded-2xl backdrop-blur-md shadow-2xl">
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-sm font-semibold text-slate-400">나의 현장 실시간 안전 점검</span>
+                            <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2.5 py-1 rounded-full font-bold">실시간 계산기</span>
+                        </div>
+                        
+                        <div class="text-center py-4">
+                            <div class="inline-flex relative items-center justify-center mb-4">
+                                <!-- Circular Gauge Container -->
+                                <svg class="w-32 h-32 transform -rotate-90">
+                                    <circle cx="64" cy="64" r="54" stroke="currentColor" stroke-width="8" class="text-slate-800" fill="transparent" />
+                                    <circle id="radialProgress" cx="64" cy="64" r="54" stroke="currentColor" stroke-width="8" class="text-emerald-500 transition-all duration-500" fill="transparent" stroke-dasharray="339.2" stroke-dashoffset="339.2" />
+                                </svg>
+                                <div class="absolute text-center">
+                                    <span id="radialPercent" class="text-3xl font-black text-white">0%</span>
+                                    <span class="block text-[10px] text-slate-400 uppercase tracking-wider">안전 수립율</span>
+                                </div>
+                            </div>
+                            <p id="safetyScoreFeedback" class="text-slate-300 text-sm mt-2">체크리스트를 확인해 점수를 올려보세요.</p>
+                        </div>
+
+                        <!-- Progress Steps List inside Card -->
+                        <div class="mt-6 space-y-3 pt-6 border-t border-white/10">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-slate-400">01. 개인 보호구 착용율</span>
+                                <span id="gaugePpeText" class="font-bold text-slate-200">0%</span>
+                            </div>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-slate-400">02. 안내 표지판 설치율</span>
+                                <span id="gaugeSignText" class="font-bold text-slate-200">0%</span>
+                            </div>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-slate-400">03. 사전 안전 교육 이행율</span>
+                                <span id="gaugeEduText" class="font-bold text-slate-200">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Diagonal Split Decorator -->
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-slate-100 to-transparent"></div>
+    </section>
+
+    <!-- SECTION 1: Personal Protective Equipment (개인 보호구) -->
+    <section id="section-ppe" class="py-24 relative overflow-hidden bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Illustration Content (Left on desktop) -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="bg-white p-6 rounded-3xl shadow-xl border border-slate-200/60 max-w-md w-full relative group hover:shadow-2xl transition-all duration-300">
+                        <!-- Custom Detailed SVG Illustrating Safety PPE -->
+                        <svg viewBox="0 0 400 450" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                            <!-- Background Circles -->
+                            <circle cx="200" cy="225" r="160" fill="#f8fafc" />
+                            <circle cx="200" cy="225" r="120" fill="#f0fdf4" class="group-hover:fill-emerald-50/50 transition-all duration-300" />
+                            
+                            <!-- 1. Safety Helmet (안전모) Visual Area -->
+                            <g transform="translate(0, 0)">
+                                <!-- Connection Lines -->
+                                <path d="M200 90 L320 90" stroke="#f97316" stroke-width="2" stroke-dasharray="4 4" />
+                                <circle cx="320" cy="90" r="4" fill="#f97316" />
+                                
+                                <!-- Safety Helmet Drawing -->
+                                <path d="M140 100 C140 60, 260 60, 260 100 L265 108 C265 112, 135 112, 135 108 Z" fill="#f97316" />
+                                <path d="M130 108 H270 V114 H130 Z" fill="#ea580c" />
+                                <!-- Visor and Crest of Helmet -->
+                                <path d="M185 62 C200 50, 215 50, 215 62" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" />
+                                <!-- Chin Strap (턱끈) -->
+                                <path d="M155 114 C155 135, 245 135, 245 114" stroke="#475569" stroke-width="3" fill="none" stroke-linecap="round" />
+                                <circle cx="200" cy="132" r="5" fill="#1e293b" />
+                                <text x="210" y="136" font-size="10" font-family="sans-serif" font-weight="bold" fill="#475569">턱끈 체결</text>
+                            </g>
+
+                            <!-- 2. Safety Harness (안전대) Visual Area -->
+                            <g transform="translate(0, 20)">
+                                <!-- Connection Lines -->
+                                <path d="M230 180 L320 180" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="4 4" />
+                                <circle cx="320" cy="180" r="4" fill="#0ea5e9" />
+                                
+                                <!-- Harness Vest/Belts on Torso representation -->
+                                <path d="M170 140 L190 260 H210 L230 140 Z" fill="#e2e8f0" opacity="0.6" />
+                                <!-- Orange safety harness straps -->
+                                <path d="M175 140 L195 240 M225 140 L205 240" stroke="#f97316" stroke-width="8" stroke-linecap="round" />
+                                <!-- Chest strap -->
+                                <path d="M180 175 H220" stroke="#ea580c" stroke-width="8" />
+                                <rect x="195" y="171" width="10" height="8" rx="2" fill="#475569" />
+                                <!-- D-Ring & Lifeline Connection -->
+                                <circle cx="200" cy="155" r="7" fill="#64748b" />
+                                <path d="M200 155 L245 205" stroke="#334155" stroke-width="4" stroke-linecap="round" />
+                                <rect x="238" y="198" width="14" height="14" rx="3" fill="#ea580c" />
+                                <path d="M245 190 C245 180, 260 180, 260 190 L260 215" stroke="#475569" stroke-width="3" fill="none" />
+                            </g>
+
+                            <!-- 3. Safety Shoes (안전화) Visual Area -->
+                            <g transform="translate(0, 40)">
+                                <!-- Connection Lines -->
+                                <path d="M210 330 L320 330" stroke="#10b981" stroke-width="2" stroke-dasharray="4 4" />
+                                <circle cx="320" cy="330" r="4" fill="#10b981" />
+                                
+                                <!-- Left Boot -->
+                                <path d="M140 310 L150 290 L165 290 L175 325 L185 330 L185 340 L135 340 L135 325 Z" fill="#334155" />
+                                <path d="M132 338 H188 V343 H132 Z" fill="#1e293b" />
+                                <!-- Reinforced Toe Cap Indicator -->
+                                <path d="M135 325 C145 325, 150 333, 150 340" stroke="#10b981" stroke-width="3" fill="none" />
+                                
+                                <!-- Right Boot -->
+                                <g transform="translate(45, 0)">
+                                    <path d="M140 310 L150 290 L165 290 L175 325 L185 330 L185 340 L135 340 L135 325 Z" fill="#334155" />
+                                    <path d="M132 338 H188 V343 H132 Z" fill="#1e293b" />
+                                    <path d="M135 325 C145 325, 150 333, 150 340" stroke="#10b981" stroke-width="3" fill="none" />
+                                </g>
+                            </g>
+
+                            <!-- Labels in Graphic with visual pointers -->
+                            <rect x="280" y="75" width="90" height="30" rx="8" fill="#f97316" />
+                            <text x="325" y="94" font-size="11" font-family="sans-serif" font-weight="900" fill="#fff" text-anchor="middle">A종 안전모</text>
+
+                            <rect x="280" y="165" width="90" height="30" rx="8" fill="#0ea5e9" />
+                            <text x="325" y="184" font-size="11" font-family="sans-serif" font-weight="900" fill="#fff" text-anchor="middle">안전대(고소)</text>
+
+                            <rect x="280" y="315" width="90" height="30" rx="8" fill="#10b981" />
+                            <text x="325" y="334" font-size="11" font-family="sans-serif" font-weight="900" fill="#fff" text-anchor="middle">스틸캡 안전화</text>
+                        </svg>
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute -top-4 -left-4 bg-safetyOrange-500 text-white font-extrabold text-sm px-4 py-2 rounded-xl shadow-lg">
+                            규정 01
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text & interactive list (Right on desktop) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-safetyOrange-600 block">PERSONAL PROTECTIVE EQUIPMENT</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 leading-tight">
+                        모든 작업자가 안전모, 안전화, 안전대(고소작업 시)를 올바르게 착용했는가?
+                    </h2>
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        보호구는 사고 시 인명을 보호하는 최후의 보루입니다. 형태적 착용을 넘어, 규정에 부합하는 착용 방식 준수 여부를 확인해야 합니다. 안전모의 턱끈 조임, 안전화의 등급 부합성, 고소 작업용 안전대의 체결지 기준 수립 등이 필수 요건입니다.
+                    </p>
+
+                    <!-- Embedded interactive checklists -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <span class="block text-sm font-bold text-slate-800 mb-4"><i class="fa-solid fa-square-check text-safetyOrange-500 mr-2"></i> 필수 확인 세부 항목 (자가 진단)</span>
+                        <div class="space-y-4" id="ppeGroup">
+                            <label class="flex items-start p-3 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer group">
+                                <input type="checkbox" data-group="ppe" class="mt-1 w-5 h-5 rounded border-slate-300 text-safetyOrange-500 focus:ring-safetyOrange-500 accent-safetyOrange-500 transition-all" onchange="calculateSafetyScore()">
+                                <div class="ml-3">
+                                    <span class="text-sm font-bold text-slate-900 block group-hover:text-safetyOrange-600 transition-colors">안전모 내장재 조절 및 턱끈 완전 밀착 체결 여부</span>
+                                    <span class="text-xs text-slate-500 block mt-0.5">느슨한 턱끈은 낙하 시 안전모 이탈을 유발해 무방비 상태로 이어집니다.</span>
+                                </div>
+                            </label>
+                            <label class="flex items-start p-3 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer group">
+                                <input type="checkbox" data-group="ppe" class="mt-1 w-5 h-5 rounded border-slate-300 text-safetyOrange-500 focus:ring-safetyOrange-500 accent-safetyOrange-500 transition-all" onchange="calculateSafetyScore()">
+                                <div class="ml-3">
+                                    <span class="text-sm font-bold text-slate-900 block group-hover:text-safetyOrange-600 transition-colors">현장 특성에 부합하는 등급의 안전화 착용 (강도 검증)</span>
+                                    <span class="text-xs text-slate-500 block mt-0.5">낙하물이 잦은 구역은 스틸-토(Steel-Toe) 캡이 내장된 고안전 성능 검증품 착용 필수.</span>
+                                </div>
+                            </label>
+                            <label class="flex items-start p-3 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer group">
+                                <input type="checkbox" data-group="ppe" class="mt-1 w-5 h-5 rounded border-slate-300 text-safetyOrange-500 focus:ring-safetyOrange-500 accent-safetyOrange-500 transition-all" onchange="calculateSafetyScore()">
+                                <div class="ml-3">
+                                    <span class="text-sm font-bold text-slate-900 block group-hover:text-safetyOrange-600 transition-colors">2m 이상 고소 작업 시 충격흡수 쇽압소바형 안전대 체결 여부</span>
+                                    <span class="text-xs text-slate-500 block mt-0.5">안전 가이드라인에 확실히 앵커링 되었는지, 벨트 마모 상태가 양호한지 점검합니다.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Informational Box -->
+                    <div class="flex items-start space-x-3 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg mt-0.5"></i>
+                        <div>
+                            <span class="text-sm font-bold text-amber-800 block">주의 수칙 안내</span>
+                            <span class="text-xs text-amber-700 leading-relaxed">보호구 미착용 시 산업안전보건법에 의거하여 근로자에게도 과태료가 부과되며, 중대재해 발생 시 현장 책임자 및 사업주가 형사 처벌될 수 있습니다.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Signboards & Fire Safety (표지판 설치) -->
+    <section id="section-signs" class="py-24 relative overflow-hidden bg-white">
+        <!-- Visual Accent Background Decorators -->
+        <div class="absolute -right-40 -bottom-40 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Text & interactive list (Left on desktop - ordered first on mobile by swapping grid positions) -->
+                <div class="lg:col-span-7 space-y-6 order-2 lg:order-1">
+                    <span class="text-xs font-bold uppercase tracking-widest text-red-600 block">SIGNAGE & FIRE PREVENTION</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 leading-tight">
+                        현장 내 흡연 구역 지정 및 화기 금지 구역의 안내 표지판이 적절히 설치되었는가?
+                    </h2>
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        공사 현장의 대다수 화재 폭발 사고는 무허가 구역의 흡연 및 화기 조작 과정에서 시공 중인 내외장 유기 단열재에 발화되면서 발생합니다. 인가된 전용 장소에 철저한 경고 조치를 수반한 구획화가 필수적입니다.
+                    </p>
+
+                    <!-- Embedded interactive checklists -->
+                    <div class="bg-slate-50 p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <span class="block text-sm font-bold text-slate-800 mb-4"><i class="fa-solid fa-square-check text-red-500 mr-2"></i> 필수 확인 세부 항목 (자가 진단)</span>
+                        <div class="space-y-4" id="signGroup">
+                            <label class="flex items-start p-3 rounded-lg hover:bg-slate-200/50 transition-colors cursor-pointer group">
+                                <input type="checkbox" data-group="sign" class="mt-1 w-5 h-5 rounded border-slate-300 text-red-500 focus:ring-red-500 accent-red-500 transition-all" onchange="calculateSafetyScore()">
+                                <div class="ml-3">
+                                    <span class="text-sm font-bold text-slate-900 block group-hover:text-red-600 transition-colors">지정된 격리 흡연 부스 구축 및 소화 용구 상시 배치</span>
+                                    <span class="text-xs text-slate-500 block mt-0.5">화재 위험 구역과 최소 15m 이상 떨어진 안전지대에 소화기 및 모래함을 포함해 구축해야 합니다.</span>
+                                </div>
+                            </label>
+                            <label class="flex items-start p-3 rounded-lg hover:bg-slate-200/50 transition-colors cursor-pointer group">
+                                <input type="checkbox" data-group="sign" class="mt-1 w-5 h-5 rounded border-slate-300 text-red-500 focus:ring-red-500 accent-red-500 transition-all" onchange="calculateSafetyScore()">
+                                <div class="ml-3">
+                                    <span class="text-sm font-bold text-slate-900 block group-hover:text-red-600 transition-colors">화산재, 인화성 물질 보관 구역 '화기금지' 표준 안전표지판 부착</span>
+                                    <span class="text-xs text-slate-500 block mt-0.5">산업안전보건 기준에 관한 규칙을 따르는 정식 적색/백색 경고판이 사방 50m 시야에서 보여야 합니다.</span>
+                                </div>
+                            </label>
+                            <label class="flex items-start p-3 rounded-lg hover:bg-slate-200/50 transition-colors cursor-pointer group">
+                                <input type="checkbox" data-group="sign" class="mt-1 w-5 h-5 rounded border-slate-300 text-red-500 focus:ring-red-500 accent-red-500 transition-all" onchange="calculateSafetyScore()">
+                                <div class="ml-3">
+                                    <span class="text-sm font-bold text-slate-900 block group-hover:text-red-600 transition-colors">임시 소방시설(휴대용 소화기, 간이 소화전) 및 경보 장치 연동 완료</span>
+                                    <span class="text-xs text-slate-500 block mt-0.5">화기 취급 작업구역 반경 5m 이내에 능력단위 3단위 이상의 소화기 2개 이상 상시 조준 배치.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Informational Box -->
+                    <div class="flex items-start space-x-3 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl">
+                        <i class="fa-solid fa-fire text-red-600 text-lg mt-0.5"></i>
+                        <div>
+                            <span class="text-sm font-bold text-red-800 block">화기 취급 사전 승인제</span>
+                            <span class="text-xs text-red-700 leading-relaxed">현장 내에서 용접, 융착, 절단 등의 화기 작업 시 반드시 '화기작업 허가서'가 사전 발행 및 서명 승인되어야 화기 공급이 허용됩니다.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Illustration Content (Right on desktop) -->
+                <div class="lg:col-span-5 flex justify-center order-1 lg:order-2">
+                    <div class="bg-slate-50 p-6 rounded-3xl shadow-xl border border-slate-200/60 max-w-md w-full relative group hover:shadow-2xl transition-all duration-300">
+                        <!-- Custom Detailed SVG Illustrating Signs and Hazards -->
+                        <svg viewBox="0 0 400 450" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                            <!-- Background Circles -->
+                            <circle cx="200" cy="225" r="160" fill="#fafafa" />
+                            <circle cx="200" cy="225" r="120" fill="#fef2f2" class="group-hover:fill-red-50 transition-all duration-300" />
+                            
+                            <!-- Left: Designated Smoking Area Sign (지정 흡연구역) -->
+                            <g transform="translate(40, 60)">
+                                <!-- Sign pole -->
+                                <rect x="50" y="80" width="8" height="180" rx="3" fill="#64748b" />
+                                <rect x="35" y="250" width="38" height="15" rx="3" fill="#334155" />
+                                
+                                <!-- Sign Board -->
+                                <rect x="15" y="20" width="80" height="80" rx="12" fill="#0284c7" stroke="#025a87" stroke-width="4" />
+                                <rect x="23" y="28" width="64" height="64" rx="8" fill="#fff" />
+                                
+                                <!-- Cigarette Icon Design -->
+                                <g transform="translate(30, 45)">
+                                    <rect x="0" y="15" width="30" height="10" fill="#cbd5e1" />
+                                    <rect x="30" y="15" width="12" height="10" fill="#d97706" />
+                                    <path d="M42 15 L45 13 L42 20 Z" fill="#991b1b" />
+                                    <!-- Smokes -->
+                                    <path d="M40 8 C38 6, 42 4, 40 2" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" fill="none" />
+                                    <path d="M44 8 C42 6, 46 4, 44 2" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" fill="none" />
+                                </g>
+                                <!-- Green OK Icon -->
+                                <circle cx="55" cy="35" r="10" fill="#10b981" />
+                                <path d="M51 35 L54 38 L59 32" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none" />
+                                
+                                <text x="55" y="112" font-size="11" font-family="sans-serif" font-weight="900" fill="#334155" text-anchor="middle">흡연구역</text>
+                            </g>
+
+                            <!-- Right: Fire Prohibited Sign (화기금지) -->
+                            <g transform="translate(200, 60)">
+                                <!-- Sign pole -->
+                                <rect x="50" y="80" width="8" height="180" rx="3" fill="#64748b" />
+                                <rect x="35" y="250" width="38" height="15" rx="3" fill="#334155" />
+                                
+                                <!-- Sign Board -->
+                                <rect x="10" y="15" width="90" height="90" rx="12" fill="#dc2626" stroke="#b91c1c" stroke-width="4" />
+                                <rect x="18" y="23" width="74" height="74" rx="8" fill="#fff" />
+                                
+                                <!-- Fire icon with cross -->
+                                <g transform="translate(35, 35)">
+                                    <!-- Flame -->
+                                    <path d="M15 45 C5 40, 5 15, 15 10 C18 18, 28 20, 25 35 C28 25, 33 22, 35 45 C35 50, 15 50, 15 45 Z" fill="#ea580c" />
+                                    <path d="M17 45 C11 40, 11 25, 16 20 C18 28, 23 28, 21 38 C23 30, 26 28, 27 45 C27 48, 17 48, 17 45 Z" fill="#f59e0b" />
+                                    <!-- Cancel Cross Line -->
+                                    <circle cx="20" cy="25" r="22" stroke="#dc2626" stroke-width="5" fill="none" />
+                                    <line x1="5" y1="10" x2="35" y2="40" stroke="#dc2626" stroke-width="5" />
+                                </g>
+                                
+                                <text x="55" y="120" font-size="11" font-family="sans-serif" font-weight="900" fill="#b91c1c" text-anchor="middle">화기엄금</text>
+                            </g>
+                        </svg>
+
+                        <!-- Floating Badge -->
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white font-extrabold text-sm px-4 py-2 rounded-xl shadow-lg">
+                            규정 02
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Education & Training (안전교육 가이드) -->
+    <section id="section-education" class="py-24 relative overflow-hidden bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Illustration Content (Left on desktop) -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="bg-white p-6 rounded-3xl shadow-xl border border-slate-200/60 max-w-md w-full relative group hover:shadow-2xl transition-all duration-300">
+                        <!-- Custom Detailed SVG Illustrating Classroom/Safety Education -->
+                        <svg viewBox="0 0 400 450" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                            <!-- Background Circles -->
+                            <circle cx="200" cy="225" r="160" fill="#f8fafc" />
+                            <circle cx="200" cy="225" r="120" fill="#eff6ff" class="group-hover:fill-blue-50 transition-all duration-300" />
+                            
+                            <!-- Blackboard / Board Screen -->
+                            <rect x="60" y="60" width="280" height="150" rx="16" fill="#1e293b" stroke="#334155" stroke-width="6" />
+                            <!-- Board Frame & Stand -->
+                            <line x1="100" y1="210" x2="80" y2="280" stroke="#475569" stroke-width="6" stroke-linecap="round" />
+                            <line x1="300" y1="210" x2="320" y2="280" stroke="#475569" stroke-width="6" stroke-linecap="round" />
+                            
+                            <!-- Board Content (Safety Charts) -->
+                            <text x="200" y="100" font-size="16" font-family="sans-serif" font-weight="900" fill="#38bdf8" text-anchor="middle">작업 전 특별 안전 교육</text>
+                            
+                            <!-- Interactive Bar Graph Graphic on Board -->
+                            <rect x="120" y="130" width="30" height="50" rx="4" fill="#64748b" />
+                            <rect x="160" y="120" width="30" height="60" rx="4" fill="#94a3b8" />
+                            <rect x="200" y="110" width="30" height="70" rx="4" fill="#10b981" />
+                            <!-- Trend Line -->
+                            <path d="M135 125 L175 115 L215 105" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" fill="none" />
+                            <circle cx="215" cy="105" r="4" fill="#f59e0b" />
+                            
+                            <text x="250" y="145" font-size="10" font-family="sans-serif" fill="#94a3b8">무재해 실현</text>
+                            <text x="250" y="165" font-size="12" font-family="sans-serif" font-weight="bold" fill="#fff">D-365 일</text>
+
+                            <!-- Trainee helmet representation (Seats in front) -->
+                            <g transform="translate(110, 270)">
+                                <!-- Trainee Left (Helmet, back of head) -->
+                                <circle cx="40" cy="60" r="24" fill="#e2e8f0" />
+                                <path d="M16 65 C16 35, 64 35, 64 65 Z" fill="#f59e0b" />
+                                <rect x="10" y="62" width="60" height="6" rx="3" fill="#d97706" />
+                                <rect x="30" y="32" width="20" height="6" rx="2" fill="#fff" />
+                            </g>
+                            
+                            <g transform="translate(210, 270)">
+                                <!-- Trainee Right -->
+                                <circle cx="40" cy="60" r="24" fill="#e2e8f0" />
+                                <path d="M16 65 C16 35, 64 35, 64 65 Z" fill="#0284c7" />
+                                <rect x="10" y="62" width="60" height="6" rx="3" fill="#0369a1" />
+                                <rect x="30" y="32" width="20" height="6" rx="2" fill="#fff" />
+                            </g>
+
+                            <!-- Instructor Speaker Silhouette (Standing right side) -->
+                            <g transform="translate(40, 160)">
+                                <circle cx="40" cy="40" r="16" fill="#334155" />
+                                <path d="M20 75 C20 56, 60 56, 60 75 L60 110 H20 Z" fill="#1e293b" />
+                                <!-- Laser Pointer stick -->
+                                <line x1="50" y1="70" x2="80" y2="20" stroke="#ef4444" stroke-width="3" stroke-linecap="round" />
+                                <circle cx="80" cy="20" r="3" fill="#ef4444" class="animate-ping" />
+                            </g>
+                        </svg>
+
+                        <!-- Floating Badge -->
+                        <div class="absolute -top-4 -left-4 bg-blue-600 text-white font-extrabold text-sm px-4 py-2 rounded-xl shadow-lg">
+                            규정 03
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text & interactive list (Right on desktop) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-blue-600 block">EDUCATION & COMPLIANCE</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 leading-tight">
+                        신규 근로자 및 특별 안전 교육이 작업 전 이행되었는가?
+                    </h2>
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        산업안전보건법상 현장에 처음 출입하는 '신규 근로자'와 유해·위험 조건에 투입되는 근로자는 반드시 관련 기초 및 특별 안전보건 교육 과정을 수료해야 법적 투입이 성립됩니다. 안전 무지는 극단적 사고로 이어집니다.
+                    </p>
+
+                    <!-- Embedded interactive checklists -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <span class="block text-sm font-bold text-slate-800 mb-4"><i class="fa-solid fa-square-check text-blue-500 mr-2"></i> 필수 확인 세부 항목 (자가 진단)</span>
+                        <div class="space-y-4" id="eduGroup">
+                            <label class="flex items-start p-3 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer group">
+                                <input type="checkbox" data-group="edu" class="mt-1 w-5 h-5 rounded border-slate-300 text-blue-500 focus:ring-blue-500 accent-blue-500 transition-all" onchange="calculateSafetyScore()">
+                                <div class="ml-3">
+                                    <span class="text-sm font-bold text-slate-900 block group-hover:text-blue-600 transition-colors">신규 근로자 기초 안전보건교육 이수증 실물 확인</span>
+                                    <span class="text-xs text-slate-500 block mt-0.5">건설업 기초안전보건교육(4시간) 이수 증빙 및 정기 교육 대장 기록이 선행되었는지 확인합니다.</span>
+                                </div>
+                            </label>
+                            <label class="flex items-start p-3 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer group">
+                                <input type="checkbox" data-group="edu" class="mt-1 w-5 h-5 rounded border-slate-300 text-blue-500 focus:ring-blue-500 accent-blue-500 transition-all" onchange="calculateSafetyScore()">
+                                <div class="ml-3">
+                                    <span class="text-sm font-bold text-slate-900 block group-hover:text-blue-600 transition-colors">유해 작업별 정해진 특별안전보건교육(16시간 이상) 이수 여부</span>
+                                    <span class="text-xs text-slate-500 block mt-0.5">밀폐공간 진입, 비계 해체 등 고위험 특별작업군 투입 전 16시간 이상 법정 교육 확보.</span>
+                                </div>
+                            </label>
+                            <label class="flex items-start p-3 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer group">
+                                <input type="checkbox" data-group="edu" class="mt-1 w-5 h-5 rounded border-slate-300 text-blue-500 focus:ring-blue-500 accent-blue-500 transition-all" onchange="calculateSafetyScore()">
+                                <div class="ml-3">
+                                    <span class="text-sm font-bold text-slate-900 block group-hover:text-blue-600 transition-colors">매일 작업 시작 전 안전점검회의 (TBM) 실질적 이행 여부</span>
+                                    <span class="text-xs text-slate-500 block mt-0.5">그날의 위험 포인트, 보호구 밀착 확인, 건강 상태 구두 체크 및 단체 스트레칭 실시.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Informational Box -->
+                    <div class="flex items-start space-x-3 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl">
+                        <i class="fa-solid fa-graduation-cap text-blue-600 text-lg mt-0.5"></i>
+                        <div>
+                            <span class="text-sm font-bold text-blue-800 block">TBM (Tool Box Meeting) 준수</span>
+                            <span class="text-xs text-blue-700 leading-relaxed">현장 소집 단위로 매일 작업 전 10~15분 동안 당일 위험 기인물과 대책을 브리핑하는 것이 일상화되어야 실무 사고율을 대폭 낮출 수 있습니다.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Diagnostic Summary Widget with Dynamic Gauge -->
+    <section class="py-16 bg-gradient-to-br from-industrialNavy-900 to-slate-950 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+            <h3 class="text-2xl sm:text-3xl font-black">종합 안전 지표 및 법적 자가진단 결론</h3>
+            <p class="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
+                앞선 세부 수칙의 체크박스들을 마우스 스크롤하며 직접 확인해보셨나요? 아래 게이지는 점검 항목에 따른 현재 실시간 현장의 안전 점수와 최종 소견을 나타냅니다.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto pt-4">
+                <!-- Group Scores -->
+                <div class="bg-white/5 border border-white/10 p-5 rounded-2xl">
+                    <i class="fa-solid fa-shield-halved text-safetyOrange-500 text-2xl mb-2"></i>
+                    <h4 class="text-sm font-bold text-slate-300">01. 개인 보호구 이행율</h4>
+                    <span id="finalPpeText" class="text-2xl font-black text-white mt-1 block">0%</span>
+                </div>
+                <div class="bg-white/5 border border-white/10 p-5 rounded-2xl">
+                    <i class="fa-solid fa-triangle-exclamation text-red-500 text-2xl mb-2"></i>
+                    <h4 class="text-sm font-bold text-slate-300">02. 안전 표지판 설치율</h4>
+                    <span id="finalSignText" class="text-2xl font-black text-white mt-1 block">0%</span>
+                </div>
+                <div class="bg-white/5 border border-white/10 p-5 rounded-2xl">
+                    <i class="fa-solid fa-user-graduate text-blue-400 text-2xl mb-2"></i>
+                    <h4 class="text-sm font-bold text-slate-300">03. 교육 의무 준수율</h4>
+                    <span id="finalEduText" class="text-2xl font-black text-white mt-1 block">0%</span>
+                </div>
+            </div>
+
+            <!-- Big Result Box -->
+            <div class="max-w-4xl mx-auto bg-slate-900/80 border border-slate-700/60 p-8 rounded-3xl mt-12 space-y-6">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="text-left space-y-2">
+                        <span class="text-xs font-bold text-slate-400 tracking-wider block">FINAL COMPLIANCE RATING</span>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-lg font-bold text-slate-200">종합 위험도 진단:</span>
+                            <span id="safetyGradeBadge" class="bg-red-500/20 text-red-400 border border-red-500/30 px-3.5 py-1 rounded-full text-xs font-bold">매우 위험 (개선 시급)</span>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-5 py-3 rounded-xl font-bold transition-all text-sm">
+                            <i class="fa-solid fa-print mr-2"></i> 점검 내역 인쇄
+                        </button>
+                        <button onclick="resetChecklist()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-5 py-3 rounded-xl font-bold transition-all text-sm">
+                            초기화
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Dynamic Advisory Paragraph based on user selection -->
+                <div class="bg-white/5 p-5 rounded-xl text-left border border-white/5">
+                    <p id="safetyAdvisory" class="text-slate-300 text-sm leading-relaxed">
+                        아직 체크된 검토 항목이 없습니다. 현장 자가 검열을 위해 위 수칙들의 상세 가이드를 다시 세심히 스크롤하시며 현장 상황에 맞춰 체크리스트를 채워나가세요. 100% 도달 시 정밀 안전 인증 피드백이 출력됩니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ and Industrial Safety Resource Library -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            <div class="text-center space-y-3">
+                <h3 class="text-2xl sm:text-3xl font-black text-slate-900">산업 안전 관련 자주 묻는 질문</h3>
+                <p class="text-slate-500 text-sm sm:text-base">현장 안전담당자 및 근로자가 빈번히 간과하는 세부 규정 모음입니다.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h4 class="text-base font-bold text-slate-900 flex items-center">
+                        <span class="bg-safetyOrange-100 text-safetyOrange-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-black mr-3 shrink-0">Q</span>
+                        안전대 고리는 반드시 어깨 높이 이상에 체결해야 하나요?
+                    </h4>
+                    <p class="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed ml-9">
+                        네, 그렇습니다. 안전대를 허리 높이나 그 이하에 체결할 경우, 추락 시 사용자가 낙하하는 자유 낙하 거리가 지나치게 길어져 쇽압소바가 정상 작동하더라도 인체가 받는 충격력이 치명적일 수 있습니다. 규정상 구조물 상부 고정점에 확실히 걸어야 합니다.
+                    </p>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h4 class="text-base font-bold text-slate-900 flex items-center">
+                        <span class="bg-safetyOrange-100 text-safetyOrange-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-black mr-3 shrink-0">Q</span>
+                        안내 표지판의 크기나 규격도 규정이 따로 존재합니까?
+                    </h4>
+                    <p class="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed ml-9">
+                        네. 산업안전보건법 시행규칙 별표에 의거하여 각 표지판 종류(금지, 경고, 지시, 안내)별로 구체적인 배색 사양, 도형 비율, 최소 규격(안내 표지판은 가로세로 비율 규정 등)이 규정되어 있어 사제 수제 표지판보다는 안전공단 승인 규격을 사용해야 단속 및 예방 면에서 완전합니다.
+                    </p>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h4 class="text-base font-bold text-slate-900 flex items-center">
+                        <span class="bg-safetyOrange-100 text-safetyOrange-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-black mr-3 shrink-0">Q</span>
+                        건설업 기초안전보건교육 이수증은 평생 유효한가요?
+                    </h4>
+                    <p class="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed ml-9">
+                        현재 법령상 이수증 자체의 갱신 만료 기한은 없으나, 장기 공백 후 재취업 시 또는 현장 정책에 따라 자체 정기 재교육(연간 교육 등)을 이수해야 현장 출입을 승인해 주는 경우가 많으므로 최신 안전 정보 수정을 상시 권장합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section with Legal Disclaimer and Quick Resources -->
+    <footer class="bg-industrialNavy-950 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-slate-800">
+                
+                <!-- Logo & Brand statement -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-safetyOrange-500 text-white p-2 rounded-lg">
+                            <i class="fa-solid fa-helmet-safety text-lg"></i>
+                        </div>
+                        <span class="text-base font-bold text-white tracking-tight">현장 3대 안전수칙 가이드</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
+                        본 가이드 시스템은 안전보건공단(KOSHA) 및 고용노동부 지침을 기반으로 제작된 핵심 수칙 준수 검증용 시뮬레이션 웹페이지입니다. 귀 현장의 모든 생명을 안전하게 사수하십시오.
+                    </p>
+                </div>
+
+                <!-- Legal Link Info -->
+                <div class="space-y-4">
+                    <h5 class="text-sm font-bold text-white uppercase tracking-wider">주요 유관기관 바로가기</h5>
+                    <ul class="text-xs space-y-2">
+                        <li><a href="https://www.kosha.or.kr" target="_blank" class="hover:text-safetyOrange-500 transition-colors">안전보건공단 바로가기 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a></li>
+                        <li><a href="https://www.moel.go.kr" target="_blank" class="hover:text-safetyOrange-500 transition-colors">고용노동부 포털 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a></li>
+                        <li><a href="https://www.law.go.kr" target="_blank" class="hover:text-safetyOrange-500 transition-colors">국가법령정보센터 (산업안전보건법)</a></li>
+                    </ul>
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="space-y-4">
+                    <h5 class="text-sm font-bold text-white uppercase tracking-wider">비상 연동 가이드</h5>
+                    <p class="text-xs leading-relaxed text-slate-400">
+                        재해 발생 시 즉시 아래 비상 핫라인으로 전파 및 대피 조치하십시오.
+                    </p>
+                    <div class="flex flex-col space-y-2">
+                        <span class="text-xs font-bold text-rose-500">소방재난본부: ☎ 119</span>
+                        <span class="text-xs font-bold text-amber-500">고용노동부 중대재해 긴급전화: ☎ 1588-3088</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Credits -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+                <span>&copy; 2026 Industrial Safety Assurance. All Rights Reserved.</span>
+                <span class="mt-2 sm:mt-0">작업 전 안전점검, 당신의 소중한 내일을 바꿉니다.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic scripts -->
+    <script>
+        // Total sub-checkpoints count in this document (3 items per section, total 9 items)
+        const totalItems = 9;
+
+        // Reset check status logic
+        function resetChecklist() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                cb.checked = false;
+            });
+            calculateSafetyScore();
+        }
+
+        // Live Safety Gauge calculator
+        function calculateSafetyScore() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            
+            // Collect groups statistics
+            let ppeChecked = 0;
+            let signChecked = 0;
+            let eduChecked = 0;
+            
+            let totalChecked = 0;
+
+            checkboxes.forEach(cb => {
+                if(cb.checked) {
+                    totalChecked++;
+                    const group = cb.getAttribute('data-group');
+                    if (group === 'ppe') ppeChecked++;
+                    else if (group === 'sign') signChecked++;
+                    else if (group === 'edu') eduChecked++;
+                }
+            });
+
+            // Calculate percentage
+            const totalPercent = Math.round((totalChecked / totalItems) * 100);
+            const ppePercent = Math.round((ppeChecked / 3) * 100);
+            const signPercent = Math.round((signChecked / 3) * 100);
+            const eduPercent = Math.round((eduChecked / 3) * 100);
+
+            // Update DOM progress displays (Text elements)
+            document.getElementById('headerProgressText').innerText = totalPercent + '%';
+            document.getElementById('radialPercent').innerText = totalPercent + '%';
+            
+            document.getElementById('gaugePpeText').innerText = ppePercent + '%';
+            document.getElementById('gaugeSignText').innerText = signPercent + '%';
+            document.getElementById('gaugeEduText').innerText = eduPercent + '%';
+
+            document.getElementById('finalPpeText').innerText = ppePercent + '%';
+            document.getElementById('finalSignText').innerText = signPercent + '%';
+            document.getElementById('finalEduText').innerText = eduPercent + '%';
+
+            // Top navigation and widget visual progress updating
+            document.getElementById('headerProgressBar').style.width = totalPercent + '%';
+            
+            // Radial dynamic dash offset setup (SVG circle circumference is 339.2)
+            const circumference = 339.2;
+            const offset = circumference - (totalPercent / 100) * circumference;
+            document.getElementById('radialProgress').style.strokeDashoffset = offset;
+
+            // Change progress color based on score health
+            const headerBar = document.getElementById('headerProgressBar');
+            const radialCircle = document.getElementById('radialProgress');
+            
+            if (totalPercent < 40) {
+                headerBar.className = "bg-rose-500 h-2.5 rounded-full transition-all duration-500";
+                radialCircle.className.baseVal = "text-rose-500 transition-all duration-500";
+            } else if (totalPercent < 80) {
+                headerBar.className = "bg-amber-500 h-2.5 rounded-full transition-all duration-500";
+                radialCircle.className.baseVal = "text-amber-500 transition-all duration-500";
+            } else {
+                headerBar.className = "bg-emerald-500 h-2.5 rounded-full transition-all duration-500";
+                radialCircle.className.baseVal = "text-emerald-500 transition-all duration-500";
+            }
+
+            // Update Advisory & feedback text blocks dynamically
+            const feedbackText = document.getElementById('safetyScoreFeedback');
+            const advisoryText = document.getElementById('safetyAdvisory');
+            const gradeBadge = document.getElementById('safetyGradeBadge');
+
+            if (totalPercent === 0) {
+                feedbackText.innerText = "자가 진단을 위해 위 항목들을 상세히 점검하십시오.";
+                gradeBadge.className = "bg-rose-500/20 text-rose-400 border border-rose-500/30 px-3.5 py-1 rounded-full text-xs font-bold";
+                gradeBadge.innerText = "미검수 상태";
+                advisoryText.innerText = "각 세부 사항의 체크리스트를 스크롤하며 검토해 주십시오. 현행 법령상의 요건에 준합하는 상세 점수가 즉시 환산됩니다.";
+            } else if (totalPercent < 50) {
+                feedbackText.innerText = "주의! 일부 치명적인 안전 수칙이 누락되어 대형 인명사고에 노출된 상태입니다.";
+                gradeBadge.className = "bg-rose-500/20 text-rose-400 border border-rose-500/30 px-3.5 py-1 rounded-full text-xs font-bold";
+                gradeBadge.innerText = "매우 위험 (개선 시급)";
+                advisoryText.innerText = "현재 수립 상태로는 중대재해처벌법 발동 위험도가 심히 높습니다. 특히 누락된 수칙 영역(개인 보호구 완전 조임, 소화 안전 시설 등)에 신속히 가이드를 적용하고 안전관리자를 배치하십시오.";
+            } else if (totalPercent < 90) {
+                feedbackText.innerText = "안전 조치 보수 중. 대부분의 법령을 준수하나 빈틈이 있어 완벽히 안심할 순 없습니다.";
+                gradeBadge.className = "bg-amber-500/20 text-amber-400 border border-amber-500/30 px-3.5 py-1 rounded-full text-xs font-bold";
+                gradeBadge.innerText = "안전 주의 단계";
+                advisoryText.innerText = "보호구의 상시 밀착력이나 비규격 안전 표지물 수정, 일용직 근로자의 당일 교육 대장 확인 등 최종 보완책을 마련하여 만일의 가상 리스크를 밀봉하시기 바랍니다.";
+            } else {
+                feedbackText.innerText = "우수 현장! 3대 기본 안전 조치가 철저히 확립되었습니다.";
+                gradeBadge.className = "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3.5 py-1 rounded-full text-xs font-bold";
+                gradeBadge.innerText = "우수 무재해 등급 달성";
+                advisoryText.innerText = "훌륭합니다! 모든 점검 요령과 보호구 지급, 명시성 표지판, 사전 TBM 실천까지 완벽히 정렬되었습니다. 이를 상시 유지하는 불시 감시 기조만 유지한다면 귀 사업장은 안전보건 우수 우량 현장으로 인정받을 수 있습니다.";
+            }
+        }
+
+        // Window Scroll indicator bar function
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scrollIndicator").style.width = scrolled + "%";
+        };
+
+        // Initialize empty diagnostic status on window load
+        window.onload = function() {
+            calculateSafetyScore();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비상연락망 및 응급구호 점검표</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            /* 업로드된 이미지를 배경으로 설정 */
+            background-image: url('image_26b508.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        /* 체크박스 커스텀 스타일 */
+        input[type="checkbox"] {
+            accent-color: #16a34a; /* Tailwind green-600 */
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+        }
+
+        /* 배경을 살짝 어둡게 하여 가독성 확보 */
+        .bg-overlay {
+            background-color: rgba(0, 0, 0, 0.4);
+            min-height: 100vh;
+        }
+
+        /* 인쇄용 스타일 */
+        @media print {
+            body {
+                background: none !important;
+                background-color: white !important;
+            }
+            .bg-overlay {
+                background: none !important;
+            }
+            .print-hide {
+                display: none !important;
+            }
+            .glass-panel {
+                box-shadow: none !important;
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-overlay flex items-center justify-center py-10 px-4">
+        
+        <!-- 메인 컨테이너 -->
+        <div class="glass-panel relative w-full max-w-4xl bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
+            
+            <!-- 헤더 영역 -->
+            <div class="bg-green-600 text-white p-6 sm:p-8 text-center">
+                <h1 class="text-2xl sm:text-3xl font-bold mb-2">비상연락망 및 응급구호 점검표</h1>
+                <p class="text-green-100 text-sm sm:text-base">현장의 안전과 생명을 지키는 첫걸음입니다.</p>
+            </div>
+
+            <!-- 진행률 표시 바 -->
+            <div class="px-6 sm:px-10 pt-6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-gray-600">점검 진행률</span>
+                    <span id="progress-text" class="text-sm font-bold text-green-600">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-green-600 h-2.5 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- 점검표 리스트 -->
+            <div class="p-6 sm:p-10">
+                <form id="checklist-form" class="space-y-3">
+                    <!-- 점검 항목들이 JavaScript를 통해 여기에 추가됩니다 -->
+                </form>
+
+                <!-- 하단 버튼 영역 -->
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center print-hide">
+                    <button type="button" onclick="window.print()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        </svg>
+                        인쇄하기
+                    </button>
+                    <button type="button" onclick="submitChecklist()" class="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        점검 완료
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 커스텀 모달 (점검 완료 메시지) -->
+    <div id="success-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 opacity-0 transition-opacity duration-300 px-4">
+        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full text-center transform scale-95 transition-transform duration-300" id="modal-content">
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
+                <svg class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2" id="modal-title">점검 완료!</h3>
+            <p class="text-gray-500 mb-6" id="modal-message">안전 점검을 무사히 마쳤습니다. 오늘도 안전한 하루 되세요.</p>
+            <button onclick="closeModal()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none sm:text-sm">
+                확인
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const checklistItems = [
+            "비상연락망(119, 현장소장, 안전관리자, 응급의료기관 등)이 작업장에 게시되어 있는가?",
+            "근로자들이 비상연락망의 위치와 비상연락 절차를 숙지하고 있는가?",
+            "응급구호함(구급함)이 작업장 내 접근하기 쉬운 위치에 비치되어 있는가?",
+            "구급함 내 응급의약품 및 구호용품이 충분히 구비되어 있으며 사용기한이 유효한가?",
+            "소화기, AED(자동심장충격기) 등 비상장비의 위치가 명확하게 표시되어 있는가?",
+            "응급환자 발생 시 신속한 대피 및 이송 절차가 마련되어 있는가?",
+            "응급상황 발생 시 응급처치가 가능한 인원(응급처치 교육 이수자)이 현장에 배치되어 있는가?",
+            "비상대피로와 비상집결장소가 지정되어 있으며 안내표지가 설치되어 있는가?",
+            "비상대피 통로에 자재 적치 등으로 인한 장애물이 없는가?",
+            "정기적인 비상대응훈련 및 응급구호 교육을 실시하고 있는가?",
+            "폭염, 한파 등 기상재해 발생 시 응급대응 체계가 마련되어 있는가?",
+            "사고 발생 시 보고체계 및 사고 기록 절차가 마련되어 있는가?"
+        ];
+
+        const form = document.getElementById('checklist-form');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        
+        // 항목 렌더링
+        function renderChecklist() {
+            checklistItems.forEach((item, index) => {
+                const label = document.createElement('label');
+                label.className = "flex items-start gap-4 p-4 rounded-lg hover:bg-green-50 transition-colors border border-transparent hover:border-green-100 cursor-pointer bg-gray-50";
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.className = "mt-1 flex-shrink-0";
+                checkbox.addEventListener('change', updateProgress);
+
+                const span = document.createElement('span');
+                span.className = "text-gray-700 text-sm sm:text-base leading-relaxed";
+                span.textContent = item;
+
+                label.appendChild(checkbox);
+                label.appendChild(span);
+                form.appendChild(label);
+            });
+        }
+
+        // 진행률 업데이트
+        function updateProgress() {
+            const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+            const total = checkboxes.length;
+            const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+            
+            const percentage = Math.round((checked / total) * 100);
+            
+            progressBar.style.width = `${percentage}%`;
+            progressText.textContent = `${percentage}%`;
+
+            // 전부 체크되었을 때 게이지 색상 변경 효과 (선택적)
+            if (percentage === 100) {
+                progressBar.classList.add('bg-green-500');
+                progressBar.classList.remove('bg-green-600');
+            } else {
+                progressBar.classList.add('bg-green-600');
+                progressBar.classList.remove('bg-green-500');
+            }
+        }
+
+        // 제출 버튼 클릭 처리 (모달 띄우기)
+        function submitChecklist() {
+            const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+            const total = checkboxes.length;
+            const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+            
+            const modalTitle = document.getElementById('modal-title');
+            const modalMessage = document.getElementById('modal-message');
+
+            if (checked === total) {
+                modalTitle.textContent = "점검 완료!";
+                modalMessage.textContent = "모든 항목의 점검을 무사히 마쳤습니다. 오늘도 안전한 하루 되세요!";
+                modalTitle.className = "text-xl font-bold text-green-600 mb-2";
+            } else {
+                modalTitle.textContent = "점검 미완료";
+                modalMessage.textContent = `아직 확인하지 않은 항목이 ${total - checked}개 있습니다. 모든 항목을 점검해주세요.`;
+                modalTitle.className = "text-xl font-bold text-red-600 mb-2";
+            }
+
+            const modal = document.getElementById('success-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // 약간의 딜레이를 주어 애니메이션 적용
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        // 모달 닫기
+        function closeModal() {
+            const modal = document.getElementById('success-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+
+        // 초기화
+        renderChecklist();
+    </script>
+</body>
+</html>

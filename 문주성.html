@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건설기계 및 중장비 안전점검</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Tailwind Config for specific colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#314766', // 상단 배경색
+                            lightBlue: '#dae6f2', // 하단 배경색
+                            primary: '#0a5c9e', // 아이콘 및 강조 텍스트 색상
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen bg-brand-lightBlue text-slate-800 flex flex-col">
+    
+    <!-- Top Hero Section (Navy Background) -->
+    <section class="bg-brand-navy relative overflow-hidden">
+        <!-- 배경 장식 (구름 무늬 등 이미지에 있는 디테일 모방) -->
+        <div class="absolute top-10 right-20 opacity-20 hidden md:block">
+            <i data-lucide="cloud" class="w-24 h-24 text-white fill-white"></i>
+        </div>
+        <div class="absolute top-24 right-48 opacity-20 hidden md:block">
+            <i data-lucide="cloud" class="w-16 h-16 text-white fill-white"></i>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 md:pb-24 flex flex-col lg:flex-row items-center relative z-10">
+            <!-- Text Content -->
+            <div class="w-full lg:w-1/2 text-left mb-12 lg:mb-0">
+                <div class="flex items-center mb-6 text-white/80">
+                    <i data-lucide="hard-hat" class="w-6 h-6 mr-2 text-red-500"></i>
+                    <span class="font-bold text-sm tracking-wider">건설현장 안전 캠페인</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6 tracking-tight">
+                    건설기계 및 중장비 <br/>
+                    <span class="text-yellow-400">안전점검</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 font-medium tracking-wide">
+                    안전한 작업환경 조성의 시작
+                </p>
+            </div>
+            
+            <!-- Illustration Placeholder -->
+            <div class="w-full lg:w-1/2 flex justify-center lg:justify-end">
+                <div class="relative w-full max-w-lg aspect-video lg:aspect-square bg-slate-800/50 rounded-2xl border border-slate-700 flex items-center justify-center overflow-hidden shadow-2xl">
+                    <div class="text-center p-6">
+                        <i data-lucide="construction" class="w-16 h-16 text-slate-500 mx-auto mb-4"></i>
+                        <p class="text-slate-400 text-sm font-medium"></p>
+                        <p class="text-slate-500 text-xs mt-2">이곳에 첨부해주신 것과 같은<br/>아이소메트릭 일러스트를 삽입하세요.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist Section (Light Blue Background) -->
+    <section class="flex-grow bg-brand-lightBlue py-16 md:py-24 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Title -->
+            <div class="flex items-center justify-center mb-12 text-brand-primary">
+                <i data-lucide="clipboard-check" class="w-6 h-6 mr-2"></i>
+                <h2 class="text-xl font-bold tracking-wider">주요 안전점검 항목</h2>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                
+                <!-- Card 1 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-white/50">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mr-4 text-brand-primary">
+                            <i data-lucide="barrier-block" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">작업 반경 통제</h3>
+                    </div>
+                    <p class="text-slate-600 leading-relaxed font-medium">
+                        중장비 작업 반경 내에 근로자의 출입 통제 조치(통제선 설치 등)가 되어 있는가?
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-white/50">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mr-4 text-brand-primary">
+                            <i data-lucide="megaphone" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">신호수/유도자 배치</h3>
+                    </div>
+                    <p class="text-slate-600 leading-relaxed font-medium">
+                        전담 신호수 및 유도자가 배치되어 운전자와 명확히 소통하고 있는가?
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-white/50">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mr-4 text-brand-primary">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">양중기 방호장치</h3>
+                    </div>
+                    <p class="text-slate-600 leading-relaxed font-medium">
+                        와이어로프, 훅(Hook) 해지장치 등 양중기의 방호장치 상태가 양호한가?
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-white/50">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mr-4 text-brand-primary">
+                            <i data-lucide="camera" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">후방 확인 장치</h3>
+                    </div>
+                    <p class="text-slate-600 leading-relaxed font-medium">
+                        장비의 후방 확인용 카메라, 경보기 등이 정상적으로 작동하는가?
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-8 border-t border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-6 text-slate-500 font-bold text-sm">
+            <!-- 로고 플레이스홀더 -->
+            <div class="flex items-center">
+                <i data-lucide="building" class="w-5 h-5 mr-2 text-red-600"></i>
+                <span>한국건설안전협회</span>
+            </div>
+            <div class="hidden md:block w-px h-4 bg-slate-300"></div>
+            <div class="flex items-center">
+                <i data-lucide="briefcase" class="w-5 h-5 mr-2 text-blue-600"></i>
+                <span>고용노동부</span>
+            </div>
+            <div class="hidden md:block w-px h-4 bg-slate-300"></div>
+            <div class="flex items-center">
+                <i data-lucide="shield" class="w-5 h-5 mr-2 text-green-600"></i>
+                <span>안전보건공단</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 스크립트: 아이콘 로딩 -->
+    <script>
+        // Lucide 아이콘 초기화
+        lucide.createIcons();
+    </script>
+</body>
+</html>
